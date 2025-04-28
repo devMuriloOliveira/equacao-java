@@ -1,0 +1,50 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class AulaPratica {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        double a = lerValor(scanner, "Digite o valor de a:");
+        double b = lerValor(scanner, "Digite o valor de b:");
+        double c = lerValor(scanner, "Digite o valor de c:");
+
+        // Usando exceções checadas
+        try {
+            double x1 = Equacao.raizEq2GrauX1(a, b, c);
+            double x2 = Equacao.raizEq2GrauX2(a, b, c);
+            System.out.println("Raiz x1: " + x1);
+            System.out.println("Raiz x2: " + x2);
+        } catch (NaoTemRaizesReaisException e) {
+            System.out.println("Não existem raízes para essa equação.");
+        }
+
+        // Usando exceções não checadas
+        try {
+            double x1_RT = Equacao.raizEq2GrauX1_RT(a, b, c);
+            double x2_RT = Equacao.raizEq2GrauX2_RT(a, b, c);
+            System.out.println("Raiz x1 (Runtime): " + x1_RT);
+            System.out.println("Raiz x2 (Runtime): " + x2_RT);
+        } catch (NaoTemRaizesReaisRuntimeException e) {
+            System.out.println("Não existem raízes reais para esta equação (Runtime).");
+        }
+
+        scanner.close();
+    }
+
+    private static double lerValor(Scanner scanner, String mensagem) {
+        double valor = 0;
+        boolean valido = false;
+        while (!valido) {
+            System.out.println(mensagem);
+            try {
+                valor = scanner.nextDouble();
+                valido = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Valor inválido. Digite um número real.");
+                scanner.next(); // Limpa a entrada errada
+            }
+        }
+        return valor;
+    }
+}
