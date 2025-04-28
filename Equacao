@@ -1,0 +1,53 @@
+// Classe auxiliar para calcular as raízes
+class Equacao {
+
+    public static double raizEq2GrauX1(double a, double b, double c) throws NaoTemRaizesReaisException {
+        double delta = calcularDelta(a, b, c);
+        if (delta < 0) {
+            throw new NaoTemRaizesReaisException();
+        }
+        return (-b + Math.sqrt(delta)) / (2 * a);
+    }
+
+    public static double raizEq2GrauX2(double a, double b, double c) throws NaoTemRaizesReaisException {
+        double delta = calcularDelta(a, b, c);
+        if (delta < 0) {
+            throw new NaoTemRaizesReaisException();
+        }
+        return (-b - Math.sqrt(delta)) / (2 * a);
+    }
+
+    public static double raizEq2GrauX1_RT(double a, double b, double c) {
+        double delta = calcularDelta(a, b, c);
+        if (delta < 0) {
+            throw new NaoTemRaizesReaisRuntimeException();
+        }
+        return (-b + Math.sqrt(delta)) / (2 * a);
+    }
+
+    public static double raizEq2GrauX2_RT(double a, double b, double c) {
+        double delta = calcularDelta(a, b, c);
+        if (delta < 0) {
+            throw new NaoTemRaizesReaisRuntimeException();
+        }
+        return (-b - Math.sqrt(delta)) / (2 * a);
+    }
+
+    private static double calcularDelta(double a, double b, double c) {
+        return b * b - 4 * a * c;
+    }
+}
+
+// Exceção para caso não existam raízes reais (checada)
+class NaoTemRaizesReaisException extends Exception {
+    public NaoTemRaizesReaisException() {
+        super("Delta negativo - Não existem raízes reais.");
+    }
+}
+
+// Exceção para caso não existam raízes reais (não checada)
+class NaoTemRaizesReaisRuntimeException extends RuntimeException {
+    public NaoTemRaizesReaisRuntimeException() {
+        super("Delta negativo - Não existem raízes reais.");
+    }
+}
